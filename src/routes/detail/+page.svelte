@@ -76,27 +76,31 @@
     <Tabs {items} />
   </div>
   <!-- Related products -->
-  <div class="flex flex-col items-center pb-20">
-    <div>
-      <h1>비슷한 상품</h1>
+  <div class="flex flex-col w-full p-10 md:items-center md:p-5 pb-20">
+    <div class="pb-5 text-center">
+      <h1 class="font-bold block">비슷한 상품</h1>
     </div>
     <!-- items -->
-    <div class="flex flex-wrap md:flex-row justify-center gap-10">
+    <div class="flex flex-wrap justify-between gap-3 md:flex-row md:space-x-20 md:justify-center">
       <!-- Item -->
       <div>
         <!-- Photo -->
-        <div class="w-36 h-36">
+        <div class="w-36 h-36 border">
           <img src="/btn_sample.jpeg" alt="">
         </div>
         <!-- Explain -->
         <div>
-          <p>Name</p>
-          <p>Price</p>
+          <p class="text-sm">Name</p>
+          <p class="text-sm">Price</p>
+          <button class="text-pink-500 text-sm">Add to cart</button>
+        </div>
+        <div>
+
         </div>
       </div>
       <div>
         <!-- Photo -->
-        <div class="w-36 h-36">
+        <div class="w-36 h-36 border">
           <img src="/btn_sample.jpeg" alt="">
         </div>
         <!-- Explain -->

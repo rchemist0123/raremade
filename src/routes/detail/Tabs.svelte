@@ -13,7 +13,7 @@
 {#each items as item}
   <li>
     <button on:click={handleClick(item.value)}
-      class="{activeTabValue === item.value ? 'text-black border-t-2 border-t-orange-500' : 'text-gray-400'} font-semibold tracking-wider transition-colors duration-300 ease-in-out"
+      class="{activeTabValue === item.value ? 'text-black border-t-2 border-t-pink-500' : 'text-gray-400'} text-lg font-semibold tracking-wider transition-colors duration-300 ease-in-out"
     >{item.label}</button>
   </li>
 {/each}
