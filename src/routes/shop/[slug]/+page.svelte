@@ -32,7 +32,7 @@
   <!-- main -->
   <div class="flex flex-col gap-10 md:flex-row md:justify-center md:pt-32"> 
     <!-- left: image -->
-    <div class="w-64 h-64">
+    <div class="md:w-64 md:h-64">
       <img src="{data.item.photo_dir}" alt="">
     </div>
     <!-- right: info & options -->
