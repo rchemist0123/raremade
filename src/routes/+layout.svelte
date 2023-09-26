@@ -1,5 +1,6 @@
 <script>
 	import '../app.css';
+	import { onMount } from 'svelte';
 	import Footer from './Footer.svelte';
 	let moonSun = '/moon.png'
     let moonStatus = 'moon';
@@ -13,22 +14,43 @@
 
 	let menus = [
 		{ name: 'Homepage', url: '/' },
-		{ name: 'About', url: '#about' },
-		{ name: 'Services', url: '#service' },
-		{ name: 'Work', url: '#work' },
+		{ name: 'About', url: '/#about' },
+		{ name: 'Services', url: '/#service' },
+		{ name: 'Work', url: '/#work' },
 		{ name: 'Shop', url: '/shop'},
-		{ name: 'Detail', url: '/detail' }
 	];
+	onMount(()=>{
+		const hamburger = document.querySelector('#hamgurger');
+		const menu = document.querySelector('#menu');
+		const links = document.querySelectorAll("#link");
+		hamburger?.addEventListener('click', () => {
+			// @ts-ignore
+			menu.classList.toggle('hidden');
+			// @ts-ignore
+			hamburger.classList.toggle('bg-white');
+		
+		});
+
+		links.forEach(link => {
+				link.addEventListener("click", ()=> {
+						// @ts-ignore
+						menu.classList.toggle('hidden');
+						// @ts-ignore
+						hamburger.classList.toggle('bg-white');
+				})
+		})
+	})
 </script>
-<nav class="w-full sticky top-0 bg-white z-10 dark:bg-slate-900">
+<nav class="w-full sticky top-0 z-10 bg-white dark:bg-slate-900">
 	<div class="container mx-auto py-5 flex items-center justify-between">
 		<div class="flex items-center pl-5 md:pl-0 gap-1">
 			<img class="w-8" src="/favicon.png" alt="" />
-			<span class="text-3xl font-caveat font-extrabold italic  text-pink-600 dark:text-white">Rare Made</span>
+			<span class="text-3xl font-caveat font-extrabold italic  text-pink-600">
+				<a href="/">Rare Made</a></span>
 		</div>
 		<ul class="hidden md:flex space-x-10 text-gray-600 dark:text-white font-bold text-sm uppercase">
 			{#each menus as menu}
-				<li class="hover:text-gray-400">
+				<li class="hover:text-pink-800">
 					<a href={menu.url}>{menu.name}</a>
 				</li>
 			{/each}
@@ -51,29 +73,36 @@
 				</svg>	
 			</li>
 		</ul>
-		<!-- <button class="text-white">
-			
+	<!-- drawer init and toggle -->
+	<div class="space-y-1 md:hidden cursor-pointer z-10">
+		<button class="text-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" 
+				data-drawer-target="drawer-right" data-drawer-show="drawer-right" data-drawer-placement="right" aria-controls="drawer-right">
+			<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+			</svg>
 		</button>
-		<button class="text-white">
-					
-		</button> -->
-		<!-- Hamberger -->
-		<div id="hamgurger" class="space-y-1 md:hidden cursor-pointer z-20">
-			<div class="w-6 h-1 bg-black"></div>
-			<div class="w-6 h-1 bg-black"></div>
-			<div class="w-6 h-1 bg-black"></div>
-		</div>
-		<ul
-			id="menu"
-			class="hidden bg-pink-900 absolute left-0 top-0 w-full p-10 rounded-b-3xl space-y-10 text-white text-center"
-		>
+	</div>
+	<!-- drawer component -->
+	<div id="drawer-right" class="fixed top-0 right-0 z-30 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800" aria-labelledby="drawer-right-label">
+		<h5 id="drawer-right-label" class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">
+			<svg class="w-4 h-4 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+				<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+			</svg>Menu
+		</h5>
+		<button type="button" data-drawer-hide="drawer-right" aria-controls="drawer-right" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
+			<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+			</svg>
+			<span class="sr-only">Close menu</span>
+		</button>
+		<ul id="menu" class="space-y-2 font-medium">
 			{#each menus as menu}
 				<li>
 					<a id="link" href={menu.url}>{menu.name}</a>
 				</li>
 			{/each}
 		</ul>
-		
+		</div>
 	</div>
 </nav>
 
