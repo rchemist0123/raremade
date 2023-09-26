@@ -1,6 +1,6 @@
 <div class="w-full bg-gray-800 ">
   <div class="container mx-auto py-5 flex items-center justify-between">
-      <div class="flex items-center gap-2">
+      <div class="flex items-center pl-5 gap-1">
           <img class="w-8" src="/favicon.png" alt="" />
           <span class="text-2xl font-bold text-white ">Raremade</span>
       </div>
