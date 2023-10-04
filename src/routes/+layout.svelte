@@ -1,5 +1,6 @@
 <script>
 	import '../app.css';
+	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import Footer from './Footer.svelte';
 	let moonSun = '/moon.png'
@@ -14,9 +15,9 @@
 
 	let menus = [
 		{ name: 'Homepage', url: '/' },
-		{ name: 'About', url: '/#about' },
-		{ name: 'Services', url: '/#service' },
-		{ name: 'Work', url: '/#work' },
+		// { name: 'About', url: '/#about' },
+		// { name: 'Services', url: '/#service' },
+		// { name: 'Work', url: '/#work' },
 		{ name: 'MY ACCOUNT ', url: '/account'},
 		{ name: 'SHOP', url: '/shop'},
 	];
@@ -52,7 +53,7 @@
 		<ul class="hidden md:flex space-x-10 text-gray-600 dark:text-white font-bold text-sm uppercase">
 			{#each menus as menu}
 				<li class="hover:text-pink-800">
-					<a href={menu.url}>{menu.name}</a>
+					<a href={menu.url} aria-current={$page.url.pathname === menu.url} >{menu.name}</a>
 				</li>
 			{/each}
 		</ul>
