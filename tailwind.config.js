@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	darkMode: "class",
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: ['./src/**/*.{html,js,svelte,ts}',"./node_modules/flowbite/**/*.js"],
 	theme: {
 		extend: {
 			spacing: {
@@ -20,5 +20,5 @@ export default {
 		},
 		
 	},
-	plugins: []
+	plugins: [require("flowbite/plugin")]
 };
