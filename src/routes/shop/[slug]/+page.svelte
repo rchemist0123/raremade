@@ -1,11 +1,15 @@
 <script>
 // @ts-nocheck
-
   import {onMount} from 'svelte';
 	import Description from './description.svelte';
 	import AdditionalInfo from './AdditionalInfo.svelte';
 	import Review from './Review.svelte';
 	import Tabs from './Tabs.svelte';
+  import { page } from '$app/stores';
+	import { enhance } from '$app/forms';
+  export let data;
+  export let form;
+  const slug = $page.params;
   let product_count = 1;
   function productCountMinus() {
     product_count = product_count === 1 ? 1 : product_count-1 ;
@@ -21,11 +25,16 @@
     {label:"상세 보기", value: 1, component: Description},
     {label:"추가 정보", value: 2, component: AdditionalInfo},
     {label:"리뷰", value: 3, component: Review}
-  ]
+  ];
+  // let wishlist = false;
+  // const addToCart = () => {
+  //   data.item.cart = true;
+  //   data.item.cart_num += product_count;
+  // }
+  const addToWishlist = () => {
+    data.item.wishlist = data.item.wishlist === false ? true : false;
+  }
 
-  let wishlist = false;
-  const addToWishlist = () => wishlist = wishlist === false ? true : false;
-  export let data;
 </script>
 
 <div class="flex flex-col gap-10 md:gap-20">
@@ -53,18 +62,21 @@
       <!-- Add to wishlist -->
       <div class="flex flex-row gap-3">
         <!-- heart icon -->
-        <button on:click={addToWishlist} class="flex justify-center items-center hover:scale-105 active:scale-95">
-          {#if wishlist}
-            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-            </svg>
-          {:else}
-            <svg class="w-5 h-5" id="favoriteHeart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-            </svg>
-          {/if}
-        </button>
-        <p>Add to wishlist</p>
+        <form method="POST" action="?/change" use:enhance >
+          <input type="hidden" hidden name="slug" value={data.item.slug}>
+          <button class="flex justify-center items-center hover:scale-105 active:scale-95 gap-2">
+            {#if data.item.wishlist}
+              <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+              </svg>
+            {:else}
+              <svg class="w-5 h-5" id="favoriteHeart" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+              </svg>
+            {/if}
+            <p>Add to wishlist</p>
+          </button>
+        </form>
       </div>
       <!-- Categories -->
       <div>
